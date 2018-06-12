@@ -24,14 +24,14 @@ class Chat extends Component {
         }
     }
 
-    addMessage = () => {
+    addMessage = (body) => {
         const messages = [...this.state.messages]
         messages.push({
             id: Date.now(),
             userName: 'anotherName',
-            body: 'If you or a loved one has been diagnosed with mesothelioma, you may be entitled to financial compensation',
+            body: body,
         })
-
+// Rather than body: body, body works
         this.setState({ messages })
     }
 

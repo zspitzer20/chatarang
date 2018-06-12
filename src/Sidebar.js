@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Sidebar extends Component{
-    render(){
+const Sidebar = (props) => {
         return(
             <div className="sidebar">
-                Sidebar
+                {props.user.userName}
             </div>
 
         )
-    }
 }
 
 export default Sidebar

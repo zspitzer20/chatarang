@@ -19,14 +19,20 @@ class MessageForm extends Component {
             <form className="MessageForm"
             onSubmit={this.handleSubmit}
             style={styles.MessageForm}>
-                <input type="text" name="body"
-                    placeholder="Type a message..."
-                    value={this.state.body}
-                    onChange={this.handleChange}
-                    style={styles.input}
-                    autoFocus
-                />
-                <button type="submit" style={styles.button}>Send</button>
+                <div style={styles.icon}>
+                <i className="fas fa-comment-alt">
+                </i>
+                </div>
+                    <input type="text" name="body"
+                        placeholder="Type a message..."
+                        value={this.state.body}
+                        onChange={this.handleChange}
+                        style={styles.input}
+                        autoFocus
+                    />
+                    <button type="submit" style={styles.button}>
+                    <i className="far fa-paper-plane" title="Send"></i>
+                    </button>
             </form>
         )
     }
@@ -44,10 +50,23 @@ const styles = {
         padding: '0',
     },
 
+    icon: {
+        display: 'flex',
+        borderRadius: '0.5rem',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        color: '#ccc',
+        padding: '0 0.5rem',
+        fontSize: '1.2rem',
+      },
+
     input: {
         flex: '1',
         fontSize: '1.2rem',
         border: '0',
+        ':focus': {
+            outline: 0,
+          },
     },
 
     button: {

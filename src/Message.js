@@ -7,9 +7,9 @@ const Message = ({ message}) =>{
     return(
 <div className="Message" style={styles.message}>
           <Avatar user={message.user} />
-          <div class="details" style={styles.details}>
+          <div className="details" style={styles.details}>
             <Metadata message={message} />
-            <div class="body">
+            <div className="body">
                 {message.body}
             </div>
           </div>

@@ -4,6 +4,8 @@ import ChatHeader from './ChatHeader'
 import MessageList from './MessageList'
 import MessageForm from './MessageForm'
 
+import base from './base'
+
 class Chat extends Component {
     constructor(){
         super()
@@ -13,6 +15,13 @@ class Chat extends Component {
         }
     }
 
+    componentWillMount(){
+        base.syncState('messages', {
+            context: this,
+            state: 'messages',
+            asArray: true,
+        })
+    }
     addMessage = (body) => {
         const messages = [...this.state.messages]
         messages.push({

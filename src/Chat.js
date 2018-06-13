@@ -9,18 +9,7 @@ class Chat extends Component {
         super()
 
         this.state = {
-            messages: [
-                {
-                    id : 1,
-                    userName: 'zspitzer',
-                    body: 'Sup Planet Earth',
-                },
-                {
-                    id: 2,
-                    userName: 'yolo$wag',
-                    body: 'Sup, brah',
-                },
-            ],
+            messages: [],
         }
     }
 
@@ -28,7 +17,7 @@ class Chat extends Component {
         const messages = [...this.state.messages]
         messages.push({
             id: Date.now(),
-            userName: this.props.user.userName,
+            user: this.props.user,
             body: body,
         })
 // Rather than body: body, body works

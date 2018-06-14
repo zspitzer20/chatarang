@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
+import ReactDOM from 'react-dom'
 
 import SignIn from './SignIn'
 import Main from './Main'
 
 class App extends Component {
-  state  ={
+  state = {
     user: {},
+    channel: 'general',
   }
 
   componentWillMount() {
@@ -31,13 +33,30 @@ class App extends Component {
     localStorage.removeItem('user')
   }
 
+  channelGet = () => {
+    return this.state.channel
+  }
+
+  channelSet = (channel) => {
+    this.setState({ channel })
+  }
+
   render() {
     return (
       <div className="App">
-        {this.signedIn() ? <Main user={this.state.user} signOut={this.signOut}/> : <SignIn handleAuth={this.handleAuth}/>}
+        {this.signedIn() 
+        ? <Main user={this.state.user} 
+        signOut={this.signOut}
+        channel={this.state.channel}
+        channelSet={this.channelSet}/> 
+        : <SignIn handleAuth={this.handleAuth}/>}
       </div>
     );
   }
+  // ReactDOM.render(
+  //   this.state.channel,
+  //   document.getElementById('root')
+  // );
 }
 
 export default App;

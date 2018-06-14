@@ -16,7 +16,7 @@ class Chat extends Component {
     }
 
     componentWillMount(){
-        base.syncState('messages', {
+        base.syncState(`${this.props.channel}/messages`, {
             context: this,
             state: 'messages',
             asArray: true,
@@ -36,7 +36,7 @@ class Chat extends Component {
     render(){
         return(
             <div className="Chat" style={styles}>
-                <ChatHeader />
+                <ChatHeader channel={this.props.channel}/>
                 <MessageList messages={this.state.messages}
                 user={this.props.user}/>
                 <MessageForm addMessage = {this.addMessage}/>

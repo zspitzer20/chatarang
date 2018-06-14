@@ -6,7 +6,7 @@ import RoomForm from './RoomForm'
 
 class RoomList extends Component {
   state = {
-    channel: {
+    channels: {
       general: {
         name: 'general',
         description: 'Some general chat stuff.',
@@ -32,14 +32,15 @@ class RoomList extends Component {
   }
 
   addRoom = (channel) => {
-    const channels = {...this.state.channel}
+    const channels = {...this.state.channels}
     channels[channel.name] = channel
-    this.setState({ channel })
+    this.setState({ channels })
   }
 
   render(){
     if(this.state.showRoomForm){
-      return <RoomForm hideRoomForm={this.hideRoomForm} />
+      return <RoomForm hideRoomForm={this.hideRoomForm} 
+      addRoom={this.addRoom}/>
     } else {
     return (
         <nav className={`RoomList ${css(styles.nav)}`}>
@@ -49,9 +50,9 @@ class RoomList extends Component {
           <i className="fas fa-plus-circle" title="Add room"></i>
         </button>
         <ul className={css(styles.list)}>
-           {Object.keys(this.state.channel).map(roomName => (
+           {Object.keys(this.state.channels).map(roomName => (
              <RoomLink key={roomName}
-             channel={this.state.channel[roomName]}
+             channel={this.state.channels[roomName]}
              channelSet={this.props.channelSet}/>
            ))}
         </ul>

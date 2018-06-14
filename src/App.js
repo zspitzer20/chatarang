@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import { auth } from './base'
 import SignIn from './SignIn'
 import Main from './Main'
 
@@ -22,8 +22,8 @@ class App extends Component {
   }
 
   handleAuth = (user) => {
-    this.setState({ user })
-    localStorage.setItem('user', JSON.stringify(user))
+        this.setState({ user })
+        localStorage.setItem('user', JSON.stringify(user))
   }
 
   signedIn = () => {
@@ -31,8 +31,12 @@ class App extends Component {
   }
 
   signOut = () => {
-    this.setState({ user: {} })
-    localStorage.removeItem('user')
+    auth
+      .signOut()
+      .then(() => {
+        this.setState({ user: {} })
+        localStorage.removeItem('user')
+      })
   }
 
   channelGet = () => {
@@ -55,10 +59,6 @@ class App extends Component {
       </div>
     );
   }
-  // ReactDOM.render(
-  //   this.state.channel,
-  //   document.getElementById('root')
-  // );
 }
 
 export default App;

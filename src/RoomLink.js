@@ -1,12 +1,13 @@
 import React from 'react'
 import {StyleSheet, css } from 'aphrodite'
 
+
 const RoomLink = ({ channel, channelSet }) => {
     const handleClick = (ev) => {
         ev.preventDefault()
         channelSet(channel)
     }
-    
+
     return(
         <li className={css(styles.item)}>
         <a href="/" className={css(styles.link)}

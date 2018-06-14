@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactDOM from 'react-dom'
 
 import SignIn from './SignIn'
 import Main from './Main'
@@ -8,7 +7,10 @@ import Main from './Main'
 class App extends Component {
   state = {
     user: {},
-    channel: 'general',
+    channel: {
+      name: 'general',
+      description: 'Announcements and general chat',
+    }
   }
 
   componentWillMount() {
@@ -34,7 +36,7 @@ class App extends Component {
   }
 
   channelGet = () => {
-    return this.state.channel
+    return this.state.channel.name
   }
 
   channelSet = (channel) => {

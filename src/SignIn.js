@@ -24,7 +24,7 @@ class SignIn extends Component {
   authenticate = () => {
     auth
       .signInWithPopup(googleProvider)
-      .then(result => this.props.handeAuth(result.user))
+      .then(result => this.props.handleAuth(result.user))
       .catch(() => console.log('deal with errors'))
   }
 

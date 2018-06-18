@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite'
 
 import RoomLink from './RoomLink'
 import RoomForm from './RoomForm'
+import base from './base'
 
 class RoomList extends Component {
   state = {
@@ -21,6 +22,16 @@ class RoomList extends Component {
 
     },
     showRoomForm: false,
+  }
+
+  componentDidMount() {
+    base.syncState(
+      'channels',
+      {
+        context: this,
+        state: 'channels',
+      }
+    )
   }
 
   showRoomForm = () => {

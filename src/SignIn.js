@@ -68,7 +68,7 @@ class SignIn extends Component {
 
     <div>or</div>*/}
 
-            <button type="button" className={css(styles.button)}
+            <button type="button" className={css(styles.button1)}
             onClick={this.authenticate}>
             <i className={`fab fa-google ${css(styles.brandIcon)}`}></i>
             Sign in with Google
@@ -76,7 +76,7 @@ class SignIn extends Component {
 
             <div>or</div>
 
-          <button type="button" className={css(styles.button)}
+          <button type="button" className={css(styles.button2)}
           onClick={this.authenticateF}>
           <i className={`fab fa-facebook ${css(styles.brandIcon)}`}></i>
           Sign in with Facebook
@@ -84,7 +84,7 @@ class SignIn extends Component {
 
           <div>or</div>
 
-          <button type="button" className={css(styles.button)}
+          <button type="button" className={css(styles.button3)}
           onClick={this.authenticateGithub}>
           <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
           Sign in with Github
@@ -162,13 +162,37 @@ const styles = StyleSheet.create({
   h2: {
     fontWeight: 'normal',
   },
-  button: {
+  button1: {
     display: 'block',
     margin: '0 auto',
     padding: '1rem 2rem',
     fontSize: '1.2rem',
     borderRadius: '1rem',
     backgroundColor: '#ff3333',
+    color: 'white',
+    width: '20rem',
+    cursor: 'pointer',
+  },
+
+  button2: {
+    display: 'block',
+    margin: '0 auto',
+    padding: '1rem 2rem',
+    fontSize: '1.2rem',
+    borderRadius: '1rem',
+    backgroundColor: '#3567ba',
+    color: 'white',
+    width: '20rem',
+    cursor: 'pointer',
+  },
+
+  button3: {
+    display: 'block',
+    margin: '0 auto',
+    padding: '1rem 2rem',
+    fontSize: '1.2rem',
+    borderRadius: '1rem',
+    backgroundColor: '#212223',
     color: 'white',
     width: '20rem',
     cursor: 'pointer',

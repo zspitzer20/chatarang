@@ -8,8 +8,6 @@ class App extends Component {
   state = {
     user: {},
     channel: {
-      name: 'general',
-      description: 'Announcements and general chat',
     }
   }
 
@@ -19,9 +17,24 @@ class App extends Component {
     if (user) {
       this.setState({ user })
     }
+
+    auth.onAuthStateChanged(
+      user => {
+        if (user) {
+          this.handleAuth(user)
+        } else {
+          this.handleUnauth()
+        }
+      }
+    )
   }
 
-  handleAuth = (user) => {
+  handleAuth = (authUser) => {
+    const user = {
+      email: authUser.email,
+      uid: authUser.uid,
+      displayName: authUser.displayName,
+    }
         this.setState({ user })
         localStorage.setItem('user', JSON.stringify(user))
   }
@@ -31,12 +44,12 @@ class App extends Component {
   }
 
   signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        this.setState({ user: {} })
-        localStorage.removeItem('user')
-      })
+    auth.signOut()
+  }
+
+  handleUnauth = () => {
+    this.setState({ user: {} })
+    localStorage.removeItem('user')
   }
 
   channelGet = () => {
@@ -55,7 +68,7 @@ class App extends Component {
         signOut={this.signOut}
         channel={this.state.channel}
         channelSet={this.channelSet}/> 
-        : <SignIn handleAuth={this.handleAuth}/>}
+        : <SignIn />}
       </div>
     );
   }

@@ -69,12 +69,21 @@ class SignIn extends Component {
             <i className={`fab fa-google ${css(styles.brandIcon)}`}></i>
             Sign in with Google
             </button>
+
             <div>or</div>
 
           <button type="button" className={css(styles.button)}
           onClick={this.authenticateF}>
           <i className={`fab fa-facebook ${css(styles.brandIcon)}`}></i>
           Sign in with Facebook
+          </button>
+
+          <div>or</div>
+
+          <button type="button" className={css(styles.button)}
+          onClick={this.authenticateF}>
+          <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
+          Sign in with Github
           </button>
 
           </form>

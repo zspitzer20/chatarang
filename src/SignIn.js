@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 
-import { auth, googleProvider, fbProvider} from './base'
+import { auth, googleProvider, fbProvider, githubProvider} from './base'
 
 class SignIn extends Component {
   state = {
@@ -31,6 +31,10 @@ class SignIn extends Component {
     auth.signInWithPopup(fbProvider)
       // .then(result => this.props.handleAuth(result.user))
       // .catch(() => console.log('deal with errors'))
+  }
+
+  authenticateGithub = () => {
+    auth.signInWithPopup(githubProvider)
   }
 
   render() {
@@ -81,7 +85,7 @@ class SignIn extends Component {
           <div>or</div>
 
           <button type="button" className={css(styles.button)}
-          onClick={this.authenticateF}>
+          onClick={this.authenticateGithub}>
           <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
           Sign in with Github
           </button>

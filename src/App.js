@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect} from 'react-router-dom'
 
 import './App.css';
-import { auth } from './base'
+import base, { auth } from './base'
 import SignIn from './SignIn'
 import Main from './Main'
 
 class App extends Component {
   state = {
     user: {},
+    users: {},
   }
 
   componentWillMount() {
@@ -17,6 +18,14 @@ class App extends Component {
     if (user) {
       this.setState({ user })
     }
+
+    base.syncState(
+      'users',
+      {
+        context: this,
+        state: 'users',
+      }
+    )
 
     auth.onAuthStateChanged(
       user => {
@@ -36,7 +45,10 @@ class App extends Component {
       displayName: authUser.displayName,
       photoUrl: authUser.photoURL,
     }
-        this.setState({ user })
+        const users = {...this.state.users}
+        users[user.uid] = user
+
+        this.setState({ user, users })
         localStorage.setItem('user', JSON.stringify(user))
   }
 
@@ -56,6 +68,11 @@ class App extends Component {
   }
 
   render() {
+    const mainProps = {
+      user: this.state.user,
+      signOut: this.signOut,
+      users: this.state.users,
+    }
     return (
       <div className="App">
         <Switch>
@@ -69,8 +86,8 @@ class App extends Component {
             path="/rooms/:roomName"
             render={navProps => (
               this.signedIn()
-              ? <Main user={this.state.user}
-              signOut={this.signOut}
+              ? <Main
+              {...mainProps}
               {...navProps}
               />
               : <Redirect to="/sign-in" />

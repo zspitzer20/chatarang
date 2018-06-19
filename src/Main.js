@@ -47,7 +47,9 @@ class Main extends Component {
       }
 
       loadValidChannel = () => {
-          const roomName = Object.keys(this.state.channels)[0]
+          const roomName = Object.keys(this.state.channels).find(
+              roomName => this.state.channels[roomName]
+          )
           this.props.history.push(`/rooms/${roomName}`)
       }
 
@@ -66,7 +68,8 @@ class Main extends Component {
             <div className="Main" style={styles}>
                 <Sidebar user={this.props.user}
                     signOut={this.props.signOut}
-                    channel={this.state.channel}/>
+                    channel={this.state.channel}
+                    users={this.props.users}/>
                 <Chat user={this.props.user}
                     channel={this.state.channel}
                     removeChannel={this.removeChannel}/>

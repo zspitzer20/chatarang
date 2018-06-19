@@ -32,7 +32,6 @@ class RoomList extends Component {
   addRoom = (channel) => {
     const channels = {...this.state.channels}
     channels[channel.name] = channel
-    console.log(channels)
     this.setState({ channels })
   }
 
@@ -45,6 +44,7 @@ class RoomList extends Component {
             navProps => (
               <RoomForm 
               addRoom={this.addRoom}
+              users={this.props.users}
               {...navProps}
               />
             )

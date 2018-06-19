@@ -2,12 +2,13 @@ import React from 'react';
 import UserInfo from './UserInfo'
 import RoomList from './RoomList'
 
-const Sidebar = ({user, signOut, channel, channelSet}) => {
+const Sidebar = ({user, signOut, channel, channelSet, users}) => {
     return(
         <aside className="Sidebar" style={styles.sidebar}>
       <UserInfo user={user} signOut={signOut}/>
       <h1 style={styles.h1}>XTBC 18</h1>
-        <RoomList channel={channel}/>
+        <RoomList channel={channel}
+        users={users}/>
     </aside>
 
     )

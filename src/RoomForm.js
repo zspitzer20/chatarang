@@ -5,22 +5,25 @@ class RoomForm extends Component {
     state = {
         name: '',
         description: '',
+        public: true,
+        users: [],
     }
 
     handleChange = (ev) => {
         const change = {}
-        change[ev.target.name] = ev.target.value
+        const target = ev.target
+        const value = target.type === 'checkbox' ? target.checked: target.value
+
+        change[target.name] = value
         this.setState( change )
     }
 
     handleSubmit = (ev) => {
         ev.preventDefault()
-        console.log('mark 1')
         this.props.addRoom({
           name: this.state.name,
           description: this.state.description,
         })
-        console.log('mark 3')
         this.props.history.goBack()
     }
   render() {
@@ -29,6 +32,16 @@ class RoomForm extends Component {
         <main className={css(styles.main)}>
           <h2 className={css(styles.title)}>Create a room</h2>
         <form className={css(styles.form)} onSubmit={this.handleSubmit}>
+        <p>
+          <label className={css(styles.label)}>
+            <input type="checkbox" name="public"
+            checked={this.state.public}
+            onChange={this.handleChange}
+            />
+            Public
+            </label>
+          </p>
+
           <p>
             <label htmlFor="name" 
               className={css(styles.label)}>
@@ -47,6 +60,26 @@ class RoomForm extends Component {
             value={this.state.description}
             onChange={this.handleChange}/>
           </p>
+
+           {
+              !this.state.public && (
+                <p>
+                  <label
+                    htmlFor="users"
+                    className={css(styles.label)}
+                  >
+                    Users to add
+                  </label>
+                  <input
+                    type="text"
+                    name="users"
+                    value={this.state.users}
+                    className={css(styles.input)}
+                    onChange={this.handleChange}
+                  />
+                </p>
+              )
+            }
           <div className={css(styles.buttonContainer)}>
             <button
               type="button"

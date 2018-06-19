@@ -45,7 +45,9 @@ class App extends Component {
   }
 
   signOut = () => {
-    auth.signOut()
+    if (window.confirm('Are you sure you wish to sign out?')){
+      auth.signOut()
+    }
   }
 
   handleUnauth = () => {

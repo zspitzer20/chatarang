@@ -2,7 +2,7 @@ import React from 'react'
 
 const ChatHeader = ({ channel, removeChannel }) => {
     const handleClick = (ev) => {
-        if(window.confirm('Are you sure?')){
+        if(window.confirm(`Are you sure you wish to delete ${channel.name}? All messaged within will also be deleted.`)){
             removeChannel(channel)
         }
     }

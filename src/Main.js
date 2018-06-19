@@ -38,8 +38,17 @@ class Main extends Component {
     }
 
     channelSet = (roomName) => {
+        if(roomName === 'new') return null
         const channel = this.state.channels[roomName]
-        this.setState({ channel })
+        if(channel) {this.setState({ channel })}
+        else{
+            this.loadValidChannel()
+        }
+      }
+
+      loadValidChannel = () => {
+          const roomName = Object.keys(this.state.channels)[0]
+          this.props.history.push(`/rooms/${roomName}`)
       }
     render(){
         return(

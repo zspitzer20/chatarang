@@ -44,9 +44,10 @@ class Chat extends Component {
     addMessage = (body) => {
         const messages = [...this.state.messages]
         messages.push({
-            id: Date.now(),
+            id: `${this.props.user.uid}-${Date.now()}`,
             user: this.props.user,
             body: body,
+            createdAt: Date.now(),
         })
 // Rather than body: body, body works
         this.setState({ messages })
@@ -55,7 +56,8 @@ class Chat extends Component {
     render(){
         return(
             <div className="Chat" style={styles}>
-                <ChatHeader channel={this.props.channel}/>
+                <ChatHeader channel={this.props.channel}
+                removeChannel={this.props.removeChannel}/>
                 <MessageList messages={this.state.messages}
                 user={this.props.user}
                 channel={this.props.channel}/>

@@ -50,6 +50,17 @@ class Main extends Component {
           const roomName = Object.keys(this.state.channels)[0]
           this.props.history.push(`/rooms/${roomName}`)
       }
+
+      removeChannel = (channel) => {
+          const channels = {...this.state.channels}
+          channels[channel.name] = null
+
+          this.setState(
+              { channels },
+              this.loadValidChannel,
+            )
+      }
+
     render(){
         return(
             <div className="Main" style={styles}>
@@ -57,7 +68,8 @@ class Main extends Component {
                     signOut={this.props.signOut}
                     channel={this.state.channel}/>
                 <Chat user={this.props.user}
-                    channel={this.state.channel}/>
+                    channel={this.state.channel}
+                    removeChannel={this.removeChannel}/>
             </div>
         )
     }

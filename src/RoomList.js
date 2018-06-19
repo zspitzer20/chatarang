@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import { Route, Switch, Link } from 'react-router-dom'
 
 import RoomLink from './RoomLink'
 import RoomForm from './RoomForm'
@@ -7,21 +8,7 @@ import base from './base'
 
 class RoomList extends Component {
   state = {
-    channels: {
-      general: {
-        name: 'general',
-        description: 'Some general chat stuff.',
-        messages: [],
-      },
-
-      random: {
-        name: 'random',
-        description: 'Some random shtuff.',
-        messages: [],
-      },
-
-    },
-    showRoomForm: false,
+    channels: {},
   }
 
   componentDidMount() {
@@ -34,42 +21,60 @@ class RoomList extends Component {
     )
   }
 
-  showRoomForm = () => {
+  /*showRoomForm = () => {
     this.setState({ showRoomForm: true })
   }
 
   hideRoomForm = () => {
     this.setState({ showRoomForm: false})
   }
-
+*/
   addRoom = (channel) => {
     const channels = {...this.state.channels}
     channels[channel.name] = channel
+    console.log(channels)
     this.setState({ channels })
   }
 
   render(){
-    if(this.state.showRoomForm){
-      return <RoomForm hideRoomForm={this.hideRoomForm} 
-      addRoom={this.addRoom}/>
-    } else {
-    return (
-        <nav className={`RoomList ${css(styles.nav)}`}>
-        <h2 className={css(styles.h2)}>Rooms</h2>
-        <button className={css(styles.button)}
-          onClick={this.showRoomForm}>
-          <i className="fas fa-plus-circle" title="Add room"></i>
-        </button>
-        <ul className={css(styles.list)}>
-           {Object.keys(this.state.channels).map(roomName => (
-             <RoomLink key={roomName}
-             channel={this.state.channels[roomName]}
-             channelSet={this.props.channelSet}/>
-           ))}
-        </ul>
-      </nav>
+    return(
+      <Switch>
+        <Route
+          path="/rooms/new"
+          render={
+            navProps => (
+              <RoomForm 
+              addRoom={this.addRoom}
+              {...navProps}
+              />
+            )
+          }
+        />
+        <Route
+          render={
+            () => (
+              <nav className={`RoomList ${css(styles.nav)}`}>
+              <div className={css(styles.heading)}>
+              <h2 className={css(styles.h2)}>Rooms</h2>
+              <Link
+                className={css(styles.button)}
+                to="/rooms/new"
+              >
+                <i className="fas fa-plus-circle" title="Add room"></i>
+                </Link>
+                </div>
+              <ul className={css(styles.list)}>
+                 {Object.keys(this.state.channels).map(roomName => (
+                   <RoomLink key={roomName}
+                   channel={this.state.channels[roomName]}/>
+                 ))}
+              </ul>
+            </nav>
+            )
+          }
+        />
+        </Switch>
     )
-  }
   }
 }
 

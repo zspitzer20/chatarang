@@ -4,15 +4,42 @@ import Sidebar from './Sidebar'
 import Chat from './Chat'
 
 class Main extends Component {
+    constructor() {
+        super()
+    
+        this.state = {
+          channel: {
+              //name: '',
+              //description: '',
+          }
+        }
+      }
+    
+    componentDidMount() {
+    this.channelSet({
+        name: this.props.match.params.roomName,
+    })
+    }
+
+    componentDidUpdate(prevProps) {
+    if (prevProps.match.params.roomName !== this.props.match.params.roomName) {
+        this.channelSet({
+        name: this.props.match.params.roomName,
+        })
+    }
+    }
+
+    channelSet = (channel) => {
+        this.setState({ channel })
+      }
     render(){
         return(
             <div className="Main" style={styles}>
                 <Sidebar user={this.props.user}
                     signOut={this.props.signOut}
-                    channel={this.props.channel}
-                    channelSet={this.props.channelSet}/>
+                    channel={this.state.channel}/>
                 <Chat user={this.props.user}
-                    channel={this.props.channel}/>
+                    channel={this.state.channel}/>
             </div>
         )
     }

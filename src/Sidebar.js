@@ -7,8 +7,7 @@ const Sidebar = ({user, signOut, channel, channelSet}) => {
         <aside className="Sidebar" style={styles.sidebar}>
       <UserInfo user={user} signOut={signOut}/>
       <h1 style={styles.h1}>XTBC 18</h1>
-        <RoomList channel={channel}
-        channelSet={channelSet}/>
+        <RoomList channel={channel}/>
     </aside>
 
     )

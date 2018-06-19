@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 
+import base from './base'
 import Sidebar from './Sidebar'
 import Chat from './Chat'
 
@@ -11,25 +12,33 @@ class Main extends Component {
           channel: {
               //name: '',
               //description: '',
-          }
+          },
+          channels: {},
         }
       }
     
     componentDidMount() {
-    this.channelSet({
-        name: this.props.match.params.roomName,
-    })
+        const { roomName } = this.props.match.params
+        base.syncState(
+            'channels',
+            {
+              context: this,
+              state: 'channels',
+              then: () => {
+                  this.channelSet(roomName)
+              },
+            }
+        )
     }
 
     componentDidUpdate(prevProps) {
     if (prevProps.match.params.roomName !== this.props.match.params.roomName) {
-        this.channelSet({
-        name: this.props.match.params.roomName,
-        })
+        this.channelSet(this.props.match.params.roomName)
     }
     }
 
-    channelSet = (channel) => {
+    channelSet = (roomName) => {
+        const channel = this.state.channels[roomName]
         this.setState({ channel })
       }
     render(){

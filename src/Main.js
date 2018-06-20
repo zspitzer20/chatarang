@@ -65,9 +65,16 @@ class Main extends Component {
     }
 
     addRoom = (channel) => {
-    const channels = {...this.state.channels}
-    channels[channel.name] = channel
-    this.setState({ channels })
+        const { user } = this.props
+        if (!channel.public){
+            channel.users.push({
+                value: user.uid,
+                label: `${user.displayName} (${user.email})`,
+            })
+        }
+        const channels = {...this.state.channels}
+        channels[channel.name] = channel
+        this.setState({ channels })
     }
 
     channelList = () => {

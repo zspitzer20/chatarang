@@ -42,6 +42,7 @@ class RoomList extends Component {
               addRoom={this.props.addRoom}
               users={this.props.users}
               {...navProps}
+              user={this.props.user}
               />
             )
           }

@@ -12,9 +12,12 @@ class RoomForm extends Component {
     }
 
     users = () => {
-      return Object.keys(this.props.users).map(
+      const { users } = this.props
+      delete users[this.props.user.uid]
+
+      return Object.keys(users).map(
         uid => {
-          const user = this.props.users[uid]
+          const user = users[uid]
           return {
             value: uid,
             label: `${user.displayName} (${user.email})`,
@@ -67,14 +70,14 @@ class RoomForm extends Component {
               </label>
             <input type="text" name="name" 
             value={this.state.name}
-            className={css(styles.input)}
+            className={css(styles.input, styles.textInput)}
             onChange={this.handleChange}
             autoFocus/>
           </p>
           <p>
             <label htmlFor="description" className={css(styles.label)}>Description</label>
             <input type="text" name="description"
-            className={css(styles.input)}
+            className={css(styles.input, styles.textInput)}
             value={this.state.description}
             onChange={this.handleChange}/>
           </p>
@@ -94,6 +97,8 @@ class RoomForm extends Component {
                     value={this.state.users}
                     options={this.users()}
                     onChange={this.handleSelectChange}
+                    className={css(styles.input)}
+                    placeholder="Invite people..."
                   />
                 </div>
               )
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
     marginBottom: '2rem',
-    paddingBottom: '2rem',
+    padding: '0 2rem 2rem',
   },
 
   label: {
@@ -160,12 +165,10 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: '20rem',
     fontSize: '1.5rem',
     border: 0,
     borderBottom: '1px solid black',
-    marginTop: '1rem',
-    marginBottom: '1rem',
+    margin: '1rem auto',
     textAlign: 'center',
     padding: '0.5rem',
 
@@ -174,6 +177,9 @@ const styles = StyleSheet.create({
     },
   },
 
+  textInput: {
+    width: '20rem',
+  },
   h2: {
     fontWeight: 'normal',
   },

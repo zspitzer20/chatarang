@@ -9,6 +9,7 @@ class RoomForm extends Component {
         description: '',
         public: true,
         users: [],
+        dm: false,
     }
 
     users = () => {

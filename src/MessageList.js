@@ -6,7 +6,12 @@ const MessageList = ({messages, channel, user}) => {
         <div className="MessageList" style={styles.MessageList}>
             <div className="roomAnnouncement" style={styles.announcement}>
                 <h3 style={styles.h3}>Hello, {user.displayName}!</h3>
-                <p style={styles.p}>This is the very beginning of the #{channel.name} chat.</p>
+                {
+                    channel.dm
+                    ? <p>This is the very beginning of your direct message.</p>
+                    : <p style={styles.p}>This is the very beginning of the #{channel.name} chat.</p>
+                }
+                
             </div>
             {
                 messages.map(msg => <Message key={msg.id} message={msg} />)

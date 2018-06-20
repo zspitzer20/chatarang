@@ -38,7 +38,7 @@ class Main extends Component {
     }
 
     channelSet = (roomName) => {
-        if(roomName === 'new') return null
+        if(roomName === 'new' || roomName === 'new-direct-message') return null
         const channel = /*this.state.channels[roomName]*/this.channelList()
             .find(channel => channel.name === roomName)
         if(channel) {this.setState({ channel })}
@@ -72,6 +72,13 @@ class Main extends Component {
                 label: `${user.displayName} (${user.email})`,
             })
         }
+
+        if( channel.dm) {
+            const userNames = channel.users.map(user => user.label.split(' ')[0])
+            channel.displayName = userNames.join(', ')
+            channel.name = channel.users.map(user => user.value).join('-')
+        }
+
         const channels = {...this.state.channels}
         channels[channel.name] = channel
         this.setState({ channels })

@@ -6,39 +6,18 @@ import RoomLink from './RoomLink'
 import RoomForm from './RoomForm'
 
 class RoomList extends Component {
-  // state = {
-  //   channels: {},
-  // }
 
-  // componentDidMount() {
-  //   base.syncState(
-  //     'channels',
-  //     {
-  //       context: this,
-  //       state: 'channels',
-  //     }
-  //   )
-  // }
-
-  /*showRoomForm = () => {
-    this.setState({ showRoomForm: true })
-  }
-
-  hideRoomForm = () => {
-    this.setState({ showRoomForm: false})
-  }
-*/
 
 
   render(){
-    const { channels } = this.props
+    const channels = this.props.channels.filter(channel => !channel.dm)
     return(
       <Switch>
         <Route
           path="/rooms/new"
           render={
             navProps => (
-              <RoomForm 
+              <RoomForm
               addRoom={this.props.addRoom}
               users={this.props.users}
               {...navProps}
@@ -65,7 +44,6 @@ class RoomList extends Component {
                    // if(roomName.public || roomName.users.some(this.props.user.uid)){
                    <RoomLink key={roomName}
                    channel={channels[roomName]}/>
-                   //}
                  ))}
               </ul>
             </nav>

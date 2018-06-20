@@ -63,13 +63,38 @@ class Main extends Component {
             )
       }
 
+      addRoom = (channel) => {
+        const channels = {...this.state.channels}
+        channels[channel.name] = channel
+        this.setState({ channels })
+      }
+
+      channelList = () => {
+          return this.channelFilter().map(roomName => this.state.channels[roomName])
+      }
+
+      channelFilter = () => {
+          return Object.keys(this.state.channels).filter(roomName => {
+              const channel = this.state.channels[roomName]
+              if(!channel) return false
+              return channel.public || this.userInclude(channel) 
+          })
+      }
+
+      userInclude = (channel) => {
+        const include = channel.users || []
+        return include.find( userOption => userOption.value === this.props.user.uid)
+      }
+
     render(){
         return(
             <div className="Main" style={styles}>
                 <Sidebar user={this.props.user}
                     signOut={this.props.signOut}
                     channel={this.state.channel}
-                    users={this.props.users}/>
+                    users={this.props.users}
+                    channels={this.channelList()}
+                    addRoom={this.addRoom}/>
                 <Chat user={this.props.user}
                     channel={this.state.channel}
                     removeChannel={this.removeChannel}/>

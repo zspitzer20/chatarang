@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 class RoomForm extends Component {
     state = {
@@ -9,8 +11,20 @@ class RoomForm extends Component {
         users: [],
     }
 
+    users = () => {
+      return Object.keys(this.props.users).map(
+        uid => {
+          const user = this.props.users[uid]
+          return {
+            value: uid,
+            label: `${user.displayName} (${user.email})`,
+          }
+        }
+      )
+    }
+
     handleChange = (ev) => {
-        const change = {}
+        const change = {...this.state}
         const target = ev.target
         const value = target.type === 'checkbox' ? target.checked: target.value
 
@@ -20,12 +34,16 @@ class RoomForm extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault()
-        this.props.addRoom({
-          name: this.state.name,
-          description: this.state.description,
-        })
+        this.props.addRoom(this.state)
         this.props.history.goBack()
     }
+
+    handleSelectChange = (selectedOption) => {
+      const channel = {...this.state}
+      channel.users = selectedOption
+      this.setState( channel )
+    }
+
   render() {
     return (
       <div className={`RoomForm ${css(styles.roomForm)}`}>
@@ -63,21 +81,21 @@ class RoomForm extends Component {
 
            {
               !this.state.public && (
-                <p>
+                <div>
                   <label
                     htmlFor="users"
                     className={css(styles.label)}
                   >
                     Users to add
                   </label>
-                  <input
-                    type="text"
+                  <Select
+                    multi
                     name="users"
                     value={this.state.users}
-                    className={css(styles.input)}
-                    onChange={this.handleChange}
+                    options={this.users()}
+                    onChange={this.handleSelectChange}
                   />
-                </p>
+                </div>
               )
             }
           <div className={css(styles.buttonContainer)}>

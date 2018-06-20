@@ -4,22 +4,21 @@ import { Route, Switch, Link } from 'react-router-dom'
 
 import RoomLink from './RoomLink'
 import RoomForm from './RoomForm'
-import base from './base'
 
 class RoomList extends Component {
-  state = {
-    channels: {},
-  }
+  // state = {
+  //   channels: {},
+  // }
 
-  componentDidMount() {
-    base.syncState(
-      'channels',
-      {
-        context: this,
-        state: 'channels',
-      }
-    )
-  }
+  // componentDidMount() {
+  //   base.syncState(
+  //     'channels',
+  //     {
+  //       context: this,
+  //       state: 'channels',
+  //     }
+  //   )
+  // }
 
   /*showRoomForm = () => {
     this.setState({ showRoomForm: true })
@@ -29,13 +28,10 @@ class RoomList extends Component {
     this.setState({ showRoomForm: false})
   }
 */
-  addRoom = (channel) => {
-    const channels = {...this.state.channels}
-    channels[channel.name] = channel
-    this.setState({ channels })
-  }
+
 
   render(){
+    const { channels } = this.props
     return(
       <Switch>
         <Route
@@ -43,7 +39,7 @@ class RoomList extends Component {
           render={
             navProps => (
               <RoomForm 
-              addRoom={this.addRoom}
+              addRoom={this.props.addRoom}
               users={this.props.users}
               {...navProps}
               />
@@ -64,9 +60,11 @@ class RoomList extends Component {
                 </Link>
                 </div>
               <ul className={css(styles.list)}>
-                 {Object.keys(this.state.channels).map(roomName => (
+                 {Object.keys(channels).map(roomName => (
+                   // if(roomName.public || roomName.users.some(this.props.user.uid)){
                    <RoomLink key={roomName}
-                   channel={this.state.channels[roomName]}/>
+                   channel={channels[roomName]}/>
+                   //}
                  ))}
               </ul>
             </nav>

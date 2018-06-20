@@ -5,7 +5,7 @@ const MessageList = ({messages, channel, user}) => {
     return(
         <div className="MessageList" style={styles.MessageList}>
             <div className="roomAnnouncement" style={styles.announcement}>
-                <h3 style={styles.h3}>Hello, {user.email}!</h3>
+                <h3 style={styles.h3}>Hello, {user.displayName}!</h3>
                 <p style={styles.p}>This is the very beginning of the #{channel.name} chat.</p>
             </div>
             {

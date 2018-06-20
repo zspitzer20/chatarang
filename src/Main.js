@@ -48,7 +48,7 @@ class Main extends Component {
     }
 
     loadValidChannel = () => {
-        const roomName = Object.keys(this.state.channels).find(
+        const roomName = this.channelFilter().find(
             roomName => this.state.channels[roomName]
         )
         this.props.history.push(`/rooms/${roomName}`)

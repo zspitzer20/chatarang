@@ -10,7 +10,8 @@ const Sidebar = ({user, signOut, channel, users, channels, addRoom}) => {
         <RoomList channel={channel}
         users={users}
         channels={channels}
-        user={user}/>
+        user={user}
+        addRoom={addRoom}/>
     </aside>
 
     )

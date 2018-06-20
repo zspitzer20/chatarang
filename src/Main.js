@@ -39,52 +39,53 @@ class Main extends Component {
 
     channelSet = (roomName) => {
         if(roomName === 'new') return null
-        const channel = this.state.channels[roomName]
+        const channel = /*this.state.channels[roomName]*/this.channelList()
+            .find(channel => channel.name === roomName)
         if(channel) {this.setState({ channel })}
         else{
             this.loadValidChannel()
         }
-      }
+    }
 
-      loadValidChannel = () => {
-          const roomName = Object.keys(this.state.channels).find(
-              roomName => this.state.channels[roomName]
-          )
-          this.props.history.push(`/rooms/${roomName}`)
-      }
+    loadValidChannel = () => {
+        const roomName = Object.keys(this.state.channels).find(
+            roomName => this.state.channels[roomName]
+        )
+        this.props.history.push(`/rooms/${roomName}`)
+    }
 
-      removeChannel = (channel) => {
-          const channels = {...this.state.channels}
-          channels[channel.name] = null
-
-          this.setState(
-              { channels },
-              this.loadValidChannel,
-            )
-      }
-
-      addRoom = (channel) => {
+    removeChannel = (channel) => {
         const channels = {...this.state.channels}
-        channels[channel.name] = channel
-        this.setState({ channels })
-      }
+        channels[channel.name] = null
 
-      channelList = () => {
-          return this.channelFilter().map(roomName => this.state.channels[roomName])
-      }
+        this.setState(
+            { channels },
+            this.loadValidChannel,
+        )
+    }
 
-      channelFilter = () => {
-          return Object.keys(this.state.channels).filter(roomName => {
-              const channel = this.state.channels[roomName]
-              if(!channel) return false
-              return channel.public || this.userInclude(channel) 
-          })
-      }
+    addRoom = (channel) => {
+    const channels = {...this.state.channels}
+    channels[channel.name] = channel
+    this.setState({ channels })
+    }
 
-      userInclude = (channel) => {
-        const include = channel.users || []
-        return include.find( userOption => userOption.value === this.props.user.uid)
-      }
+    channelList = () => {
+        return this.channelFilter().map(roomName => this.state.channels[roomName])
+    }
+
+    channelFilter = () => {
+        return Object.keys(this.state.channels).filter(roomName => {
+            const channel = this.state.channels[roomName]
+            if(!channel) return false
+            return channel.public || this.userInclude(channel) 
+        })
+    }
+
+    userInclude = (channel) => {
+    const include = channel.users || []
+    return include.find( userOption => userOption.value === this.props.user.uid)
+    }
 
     render(){
         return(

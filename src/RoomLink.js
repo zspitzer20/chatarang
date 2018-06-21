@@ -10,7 +10,7 @@ const RoomLink = ({ channel }) => {
         <NavLink to={`/rooms/${channel.name}`}
         className={css(styles.link)}
         >
-        { channel.displayName }</NavLink>
+        { channel.displayName || channel.name}</NavLink>
         </li>
     )
 }

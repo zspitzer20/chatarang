@@ -9,7 +9,7 @@ const ChatHeader = ({ channel, removeChannel }) => {
         return(
             <div className="ChatHeader" style={styles.ChatHead}>
                 <div className="roomInfo">
-                    <h2 style={styles.h2}>#{channel.displayName}</h2>
+                    <h2 style={styles.h2}>#{channel.displayName || channel.name}</h2>
                     <p style={styles.p}>
                     {channel.description}</p>
                 </div>

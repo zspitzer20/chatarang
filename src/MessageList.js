@@ -8,7 +8,7 @@ const MessageList = ({messages, channel, user}) => {
                 <h3 style={styles.h3}>Hello, {user.displayName}!</h3>
                 {
                     channel.dm
-                    ? <p>This is the very beginning of your direct message.</p>
+                    ? <p style={styles.p}>This is the very beginning of your direct message.</p>
                     : <p style={styles.p}>This is the very beginning of the #{channel.name} chat.</p>
                 }
                 

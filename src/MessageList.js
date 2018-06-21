@@ -28,7 +28,7 @@ const styles = {
         overflowY: 'scroll',
     },
     announcement: {
-        padding: '2rem 1rem',
+        padding: '2rem 1rem 10rem',
       },
     
       h3: {

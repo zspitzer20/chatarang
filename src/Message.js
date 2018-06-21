@@ -14,6 +14,11 @@ class Message extends Component {
         this.setState({ showPicker: !this.state.showPicker })
     }
 
+    handleEmojiSelect = (emoji) => {
+        console.log(emoji)
+        this.togglePicker()
+    }
+
     render (){
         const { message } = this.props
 
@@ -25,7 +30,8 @@ class Message extends Component {
                 <div className="body">
                     {message.body}
                 </div>
-                <button className={css(styles.reactionButton)}>
+                <button className={css(styles.reactionButton)}
+                    onClick={this.togglePicker}>
                     <i className="far fa-smile"></i>
                 </button>
                 </div>
@@ -33,6 +39,8 @@ class Message extends Component {
                     this.state.showPicker &&
                     <Picker
                         showPreview={false}
+                        style={pickerStyles}
+                        onSelect={this.handleEmojiSelect}
                     />
                 }
             </div>
@@ -45,8 +53,13 @@ const styles = StyleSheet.create({
     message: {
       display: 'flex',
       marginTop: '1rem',
-      padding: '0 1rem',
+      padding: '1rem',
       position: 'relative',
+      zIndex: 1,
+
+      ':hover': {
+          backgroundColor: '#f6f6f6',
+      }
     },
   
     details: {
@@ -71,5 +84,11 @@ const styles = StyleSheet.create({
       },
     },
   })
+
+  const pickerStyles = {
+      position: 'absolute',
+      top: '-20rem',
+      right: '2rem',
+  }
 
 export default Message

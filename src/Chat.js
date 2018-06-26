@@ -12,6 +12,7 @@ class Chat extends Component {
 
         this.state = {
             messages: [],
+            rebaseBinding: null,
         }
     }
 
@@ -53,6 +54,19 @@ class Chat extends Component {
         this.setState({ messages })
     }
 
+    addReaction = (message, emoji) => {
+        message.reactions = message.reactions || {}
+        message.reactions[emoji] = message.reactions[emoji] || []
+    
+        message.reactions[emoji].push(this.props.user)
+    
+        const messages = [...this.state.messages]
+        const i = messages.findIndex(msg => msg.id === message.id)
+        messages[i] = message
+    
+        this.setState({ messages })
+      }
+
     render(){
         return(
             <div className="Chat" style={styles}>
@@ -60,7 +74,8 @@ class Chat extends Component {
                 removeChannel={this.props.removeChannel}/>
                 <MessageList messages={this.state.messages}
                 user={this.props.user}
-                channel={this.props.channel}/>
+                channel={this.props.channel}
+                addReaction={this.addReaction}/>
                 <MessageForm addMessage = {this.addMessage}/>
             </div>
         )

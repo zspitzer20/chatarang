@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Message from './Message'
 
-const MessageList = ({messages, channel, user}) => {
+class MessageList extends Component {
+    componentDidUpdate(prevProps){
+        if (prevProps.messages.length < this.props.messages.length){
+            this.scrollToBottom()
+        }
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({behavior: 'smooth'})
+    }
+
+    render() {
+        const { messages, channel, user } = this.props
     return(
         <div className="MessageList" style={styles.MessageList}>
             <div className="roomAnnouncement" style={styles.announcement}>
@@ -10,14 +22,16 @@ const MessageList = ({messages, channel, user}) => {
                     channel.dm
                     ? <p style={styles.p}>This is the very beginning of your direct message.</p>
                     : <p style={styles.p}>This is the very beginning of the #{channel.name} chat.</p>
-                }
-                
+                }  
             </div>
             {
-                messages.map(msg => <Message key={msg.id} message={msg} />)
+                messages.map(msg => (<Message key={msg.id} message={msg}
+                addReaction={this.props.addReaction}/>))
             }
+              <div ref={el => this.messagesEnd = el}></div>
         </div>
     )
+    }
 }
 
 const styles = {
